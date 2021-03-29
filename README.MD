@@ -2,6 +2,9 @@
 
 This is a example repo for demonstrating how to publish MD files from a repo to a GH Wiki
 
+[![GitHub Super-Linter](https://github.com/jmassardo/gh-action-post-to-wiki/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+
+
 ## Assumptions
 
 This code makes the following assumptions

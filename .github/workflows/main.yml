@@ -25,17 +25,18 @@ jobs:
         uses: github/super-linter@v3
         env:
           DEFAULT_BRANCH: main
-          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_WORKSPACE: ./wiki
           VALIDATE_MARKDOWN: true
           GITHUB_TOKEN: ${{ secrets.PAT }}
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Create Board
-        env:
-            API_KEY: ${{ secrets.FRESKDESK_API_KEY }}
-            URL_ROOT: ${{ secrets.FRESHDESK_URL }}
-        run: |
-          pip install markdown
-          python publish_external_kbs.py
+      # - name: Set up Python 3.9
+      #   uses: actions/setup-python@v2
+      #   with:
+      #     python-version: 3.9
+      # - name: Publish KBs to Freshdesk
+      #   env:
+      #       API_KEY: ${{ secrets.FRESKDESK_API_KEY }}
+      #       URL_ROOT: ${{ secrets.FRESHDESK_URL }}
+      #   run: |
+      #     pip install markdown
+      #     pip install requests
+      #     python publish_external_kbs.py
