@@ -14,6 +14,10 @@ for kb in glob.glob("./wiki/*.md"):
       # Convert markdown to HTML
       html = markdown.markdown(text)
 
+      # Setting a default empty string for the tags
+      # If there aren't any tags, we need to give it an empty string to prevent errors
+      tags = []
+
       # Split out the other metadata
       lines = text.split('\n')
       for l in lines:
@@ -23,11 +27,10 @@ for kb in glob.glob("./wiki/*.md"):
           folder = l.split('- ')[1].replace('"', '')
         
         # We need the tags in a list instead of a string.
-        # If there aren't any tags, we need to give it an empty string to prevent errors
         if '[_metadata_:tags]' in l:
-          tags = l.split('- ')[1].split(', ')
-        else:
-          tags = ""
+
+          # Split the single string off from the header, remove the quotes, finally split it into a list
+          tags = l.split('- ')[1].replace('"', '').split(', ')
 
       # Strip the extension so we can use the filename as the article title
       title = kb.replace('.md', '')
