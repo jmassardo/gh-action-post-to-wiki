@@ -14,13 +14,20 @@ for kb in glob.glob("./wiki/*.md"):
       # Convert markdown to HTML
       html = markdown.markdown(text)
 
-      # Look for the category and folder name in the markdown
+      # Split out the other metadata
       lines = text.split('\n')
       for l in lines:
         if '[_metadata_:category]' in l:
           category = l.split('- ')[1].replace('"', '')
         if '[_metadata_:folder]' in l:
           folder = l.split('- ')[1].replace('"', '')
+        
+        # We need the tags in a list instead of a string.
+        # If there aren't any tags, we need to give it an empty string to prevent errors
+        if '[_metadata_:tags]' in l:
+          tags = l.split('- ')[1].split(', ')
+        else:
+          tags = ""
 
       # Strip the extension so we can use the filename as the article title
       title = kb.replace('.md', '')
@@ -33,7 +40,7 @@ for kb in glob.glob("./wiki/*.md"):
         folder_id = folders[0]["folder_id"]
 
         print("Didn't find: "+ title +", Attempting to create")
-        result = fd.create_article(title, html, folder_id)
+        result = fd.create_article(title, html, folder_id, tags)
       else:
         print("Found: "+ title +", Attempting to update")
-        result = fd.update_article(title, html, val["article_id"])
+        result = fd.update_article(title, html, val["article_id"], tags)

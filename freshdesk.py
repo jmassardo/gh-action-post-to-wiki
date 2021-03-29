@@ -73,11 +73,12 @@ def get_articles():
   return article_list
 
 # Make a single article in a specific folder.
-def create_article(title, description, folder_id):
+def create_article(title, description, folder_id, tags):
   article = {
           'title': title,
           'description' : description,
-          'status': 2
+          'status': 2,
+          'tags': tags
       }
   response = rest_api('POST', url_root +"folders/"+ str(folder_id) +"/articles", article)
   result = json.loads(response.text)
@@ -85,11 +86,12 @@ def create_article(title, description, folder_id):
   return result["id"]
 
 # Update a specific article
-def update_article(title, description, article_id):
+def update_article(title, description, article_id, tags):
   article = {
           'title': title,
           'description' : description,
-          'status': 2
+          'status': 2,
+          'tags': tags
       }
   response = rest_api('PUT', url_root +"articles/"+ str(article_id), article)
   result = json.loads(response.text)
