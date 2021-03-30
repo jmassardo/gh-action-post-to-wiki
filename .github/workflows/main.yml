@@ -20,6 +20,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: lint
     steps:
+      - uses: actions/checkout@v2
       - name: Publish to GitHub Wiki
         uses: SwiftDocOrg/github-wiki-publish-action@1.0.0
         with:
@@ -31,6 +32,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: lint
     steps:
+      - uses: actions/checkout@v2
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
