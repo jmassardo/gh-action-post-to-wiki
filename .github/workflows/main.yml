@@ -20,14 +20,14 @@ jobs:
         with:
           path: wiki
         env:
-          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.PAT }}
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
           DEFAULT_BRANCH: main
           DEFAULT_WORKSPACE: ./wiki
           VALIDATE_MARKDOWN: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
