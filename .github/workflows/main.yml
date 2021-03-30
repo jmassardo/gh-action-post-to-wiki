@@ -1,26 +1,13 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the action will run. 
+name: Publish Wiki Pages
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
   workflow_dispatch:
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Publish to GitHub Wiki
-        uses: SwiftDocOrg/github-wiki-publish-action@1.0.0
-        with:
-          path: wiki
-        env:
-          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.PAT }}
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
@@ -28,6 +15,16 @@ jobs:
           DEFAULT_WORKSPACE: ./wiki
           VALIDATE_MARKDOWN: true
           GITHUB_TOKEN: ${{ secrets.PAT }}
+  publish:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Publish to GitHub Wiki
+        uses: SwiftDocOrg/github-wiki-publish-action@1.0.0
+        with:
+          path: wiki
+        env:
+          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.PAT }}
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
